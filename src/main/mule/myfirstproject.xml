@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<mule xmlns:ee="http://www.mulesoft.org/schema/mule/ee/core" xmlns:http="http://www.mulesoft.org/schema/mule/http"
+	xmlns="http://www.mulesoft.org/schema/mule/core"
+	xmlns:doc="http://www.mulesoft.org/schema/mule/documentation" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.mulesoft.org/schema/mule/core http://www.mulesoft.org/schema/mule/core/current/mule.xsd
+http://www.mulesoft.org/schema/mule/http http://www.mulesoft.org/schema/mule/http/current/mule-http.xsd
+http://www.mulesoft.org/schema/mule/ee/core http://www.mulesoft.org/schema/mule/ee/core/current/mule-ee.xsd">
+	<http:listener-config name="HTTP_Listener_config" doc:name="HTTP Listener config" doc:id="ebb6f2ca-ade4-44aa-b065-dfc25c7d865d" >
+		<http:listener-connection host="0.0.0.0" port="8081" />
+	</http:listener-config>
+	<flow name="myfirstprojectFlow" doc:id="19e73e28-2334-4202-a42c-fccc04fbee2e" >
+		<http:listener doc:name="Listener" doc:id="3028ce03-2edb-4d23-b0a8-50f3d0653d53" config-ref="HTTP_Listener_config" path="/myFirst"/>
+		<logger level="INFO" doc:name="Logger" doc:id="45bb2c6e-5bf1-4bb4-82ad-65959e70f64a" message="this is starting of the flow"/>
+		<ee:transform doc:name="Transform Message" doc:id="5715cd74-5e4e-457f-b894-74ef7b3cdc13" >
+			<ee:message >
+				<ee:set-payload ><![CDATA[%dw 2.0
+output application/json
+---
+{
+	"yourName": "priyanka vepuri"
+}]]></ee:set-payload>
+			</ee:message>
+		</ee:transform>
+		<logger level="INFO" doc:name="Logger" doc:id="ead88520-b913-49e2-95c4-d571a386e819" message="End Of MyFirstProject"/>
+	</flow>
+</mule>
